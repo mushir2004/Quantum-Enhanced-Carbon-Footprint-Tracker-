@@ -4,6 +4,7 @@ It helps to make more precise calculation of the carbon usage based  on food con
 https://youtu.be/Lskl-OcqBQQ?si=VgkOrvsBBXjHMjNB
 This the code explaination video
 
-![Screenshot](![Screenshot](https://github.com/yourusername/yourrepo/blob/main/screenshot.png?raw=true)
+![Screenshot](https://github.com/mushir2004/Quantum-Enhanced-Carbon-Footprint-Tracker-/blob/main/Output/Screenshot%202024-10-16%20031436.png )
+
 
 
