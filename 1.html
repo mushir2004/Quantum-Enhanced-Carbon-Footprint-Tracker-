@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quantum Enhanced Carbon Footprint Tracker</h1>
+        <form id="footprintForm">
+            <label for="energy_usage">Energy Usage (kWh):</label>
+            <input type="number" id="energy_usage" required>
+
+            <label for="transport_distance">Transport Distance (km):</label>
+            <input type="number" id="transport_distance" required>
+
+            <label for="food_consumption">Food Consumption (kg):</label>
+            <input type="number" id="food_consumption" required>
+
+            <label for="waste_management">Waste Management (kg):</label>
+            <input type="number" id="waste_management" required>
+
+            <button type="submit">Predict Carbon Footprint</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("footprintForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            // Gather input data
+            const energy_usage = document.getElementById("energy_usage").value;
+            const transport_distance = document.getElementById("transport_distance").value;
+            const food_consumption = document.getElementById("food_consumption").value;
+            const waste_management = document.getElementById("waste_management").value;
+
+            // Prepare data for the model
+            const inputData = {
+                energy_usage: parseFloat(energy_usage),
+                transport_distance: parseFloat(transport_distance),
+                food_consumption: parseFloat(food_consumption),
+                waste_management: parseFloat(waste_management)
+            };
+
+            try {
+                // Send data to the backend (Flask API)
+                const response = await fetch("https://28c3-34-106-237-95.ngrok-free.app/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(inputData)
+                });
+
+                // Get the prediction result
+                const result = await response.json(); 
+
+                // Display the result
+                document.getElementById("result").innerText = `Predicted Carbon Footprint: ${result.predicted_footprint.toFixed(2)} kg CO2`;
+
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("result").innerText = "Error in predicting the carbon footprint.";
+            }
+        });
+    </script>
+</body>
+</html>
